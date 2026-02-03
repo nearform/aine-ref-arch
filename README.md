@@ -151,10 +151,16 @@ Practical advice:
 ### MCP servers (tool integration)
 Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities**.
 
+What changes architecturally:
+- Your “agent” stops being a blob of prompts and becomes an application that can call **tools with explicit interfaces**.
+- You can apply **security and governance** at the tool boundary (not just in prompt text).
+
 Best practices:
 - Run MCP servers **inside your trust boundary** (VPC/on‑prem) where possible.
-- Use **least privilege**: separate tokens per tool, per environment.
-- Treat MCP as part of your **attack surface** (logging, authn/z, rate limits).
+- Use **least privilege**: separate tokens per tool and per environment (dev/stage/prod).
+- Put MCP behind **authn/z** (mTLS/OIDC), with per‑tool allowlists.
+- Add **auditing**: log tool calls with inputs/outputs (redact secrets), user, repo, and ticket/spec reference.
+- Rate limit and sandbox: treat MCP as part of your **attack surface**.
 
 ---
 
@@ -171,6 +177,16 @@ Controls to build trust across the SDLC:
 - **Review model:** humans review changes; agents don’t merge to main unassisted.
 
 ---
+
+## Design tools / Brainstorming agents / Testing agents
+
+These are the other three AINE branches that typically get overlooked when teams focus only on IDE copilots.
+
+- **Design tools:** UI generation, journey mapping, architecture diagramming, ADR drafting.
+- **Brainstorming agents:** domain research, option generation, risk discovery, “red team” review of plans/specs.
+- **Testing agents:** test plan creation, coverage targeting, regression triage, flaky test isolation, security test generation.
+
+In practice, you’ll get the most leverage when these agents produce **artifacts** (PRDs, ADRs, test plans) that feed Context Engineering.
 
 ## Autonomous agent roles (example)
 
