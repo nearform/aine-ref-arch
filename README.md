@@ -81,6 +81,20 @@ Recommended rollout: **start narrow and deep**, prove ROI with measurable guardr
 
 ## Tooling layers
 
+### Context Engineering (the core)
+
+Context Engineering is how you make AI outputs **predictable**: you shape the inputs, constraints, and workflow so the model is doing bounded work.
+
+Core techniques in this doctrine:
+- **SDD (Spec‑Driven Development):** the source of truth is *written specs* (PRD/architecture/story spec), not a chat thread.
+- **Plan Mode:** require the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code.
+- **EPCC:** a repeatable loop for producing reliable outputs from AI systems:
+  - **E**xplore (clarify intent, gather context)
+  - **P**lan (produce a concrete plan and acceptance criteria)
+  - **C**reate (implement in small, reviewable increments)
+  - **C**heck (tests, linters, policy gates, human review)
+- **Vibe Coding:** tactical autocomplete / chat‑driven coding. Useful, but it does not scale without the other techniques.
+
 ### Foundation models & chat
 Choose the model **and** the operating model (privacy, latency, cost, governance).
 
@@ -185,6 +199,11 @@ Each agent has:
 
 ### 2) Enterprise (private endpoints)
 - **LLM:** Bedrock/Azure OpenAI/Vertex via private networking.
+
+Cloud mapping (illustrative):
+- **AWS:** Bedrock (models) + IAM/STS (auth) + PrivateLink/VPC endpoints (network) + CloudWatch/OpenSearch (telemetry)
+- **Azure:** Azure OpenAI + Entra ID (auth) + Private Link + Log Analytics
+- **GCP:** Vertex AI + IAM + Private Service Connect + Cloud Logging
 - **IDE:** VS Code/Cursor‑class with org rules + telemetry controls.
 - **MCP:** Hosted in VPC; separate credentials per tool/env.
 - **Governance:** stronger audit, DLP, policy‑as‑code, prompt/provenance logging.
