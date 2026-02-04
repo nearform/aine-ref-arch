@@ -4,7 +4,7 @@ This document describes a **reference architecture for AI‑Native Engineering**
 
 It is intentionally **capability‑first** (what AI enables across the SDLC) rather than a fixed shopping list of tools. Tool examples are included to make the architecture concrete.
 
-## AINE taxonomy
+## The AINE Building Blocks
 
 ```mermaid
 graph TD
@@ -33,37 +33,64 @@ graph TD
   AG --> AC[Commands]
 ```
 
-This taxonomy describes the fundamental building blocks in enabling an organization to transition to working AI-natively.
+This diagram describes the fundamental building blocks in enabling an organization to transition to working AI-natively.
 
-In order to have a productive approach to AINE, an enterprise needs to consider each of these concerns:
+In order to have a productive approach to AINE, an enterprise needs to consider each of these areas:
 - **Context Engineering Methods**: How will the organization manage the context needed for an agent to build successfully with AI.
 - **AI-Enabled Tools**: What suite of existing off-the-shelf tools can the organisation either procure, or enable the AI functionality within, in order to move faster.
 - **Foundation Models**: Does the organization want to standardise on one suite of Foundation Models, and is the risk profile of the business such that a public model is an option, do they need to use a private model catalog on a hyperscaler, or do they need to host their own?
 - **Agents**: How will the coding & document authoring agents within the enterprise utilise a secure connectivity layer to maximise the context available to them when developing.
 
----
-
-## Rollout strategy: enterprise‑wide vs domain pilots
-
-Observed patterns across client rollouts:
-
-1) **Enterprise‑wide enablement (broad + shallow)**
-- Roll out IDE copilots, basic doc summarisation, lightweight test generation.
-- Produces **marginal but real** gains (often ~10% productivity).
-- Good for baseline competence; rarely transformational.
-
-2) **Domain‑level acceleration (narrow + deep)**
-- Pick a project/domain well‑suited to AI‑native delivery (greenfield build, modernisation).
-- Invest in **context engineering** (specs, architecture, conventions), **agentic workflows**, and CI/CD integration.
-- Can yield **3–5× acceleration** with better quality (tests, documentation, consistency).
-
-Recommended rollout: **start narrow and deep**, prove ROI with measurable guardrails, then scale horizontally.
+This reference will dive deeper into each of these topics.  
 
 ---
 
 ## Where AI assists in the SDLC (capabilities)
 
-### 1) Planning
+```mermaid
+kanban
+  Product
+    "Meeting Assistants"
+    "PRDs"
+    "Technical Specs"
+    "Backlog Generation"
+    "Project Constitution"
+
+  Design
+    "Architecture Brainstorming"
+    "Rapid Prototyping"
+    "Bootstrap Infrastructure"
+    "Visual Design"
+
+  Implementation
+    "Agentic Project Bootstrap"
+    "Coding CoPilot"
+    "Spec-Driven Dev"
+    "Agentic Teams"
+
+  Testing
+    "Functional Testing"
+    "Self-Healing Tests"
+    "Automation Tests"
+    "Agentic QA Function"
+    "Security Testing"
+    "Static Analysis"
+
+  Deployment
+    "Predictive Release Management"
+    "Anomaly Detection"
+    "IaC Generation"
+
+  Maintenance
+    "Documentation Generation"
+    "RAG Assistants"
+    "Interactive Runbooks"
+    "Vulnerability Patching"
+    "Dependency Updates"
+```
+
+
+### 1) Product
 - Capture and structure early discovery (meeting transcripts → decisions → PRDs).
 - Convert intent into backlog (epics/stories, acceptance criteria, constraints).
 - Reduce "Sprint 0" overhead by generating first‑pass specs and risk registers.
@@ -76,7 +103,7 @@ Recommended rollout: **start narrow and deep**, prove ROI with measurable guardr
 ### 3) Implementation
 - Bootstrapping: create skeletons aligned to your stack and conventions.
 - Vibe Coding (tactical): inline completions and small refactors.
-- **Spec‑Driven Development (strategic):** generate work from structured specs.
+- Spec‑Driven Development (strategic): generate work backlogs from structured specs.
 - Agentic delivery: agents implement bounded tasks with human review gates.
 
 ### 4) Testing
@@ -263,6 +290,24 @@ Controls to build trust across the SDLC:
 - **Provenance:** trace outputs back to prompts/specs/inputs.
 - **Environment separation:** sandbox vs staging vs prod credentials.
 - **Review model:** humans review changes; agents don't merge to main unassisted.
+
+---
+
+## Rollout strategy: enterprise‑wide vs domain pilots
+
+Observed patterns across client rollouts:
+
+1) **Enterprise‑wide enablement (broad + shallow)**
+- Roll out IDE copilots, basic doc summarisation, lightweight test generation.
+- Produces **marginal but real** gains (often ~10% productivity).
+- Good for baseline competence; rarely transformational.
+
+2) **Domain‑level acceleration (narrow + deep)**
+- Pick a project/domain well‑suited to AI‑native delivery (greenfield build, modernisation).
+- Invest in **context engineering** (specs, architecture, conventions), **agentic workflows**, and CI/CD integration.
+- Can yield **3–5× acceleration** with better quality (tests, documentation, consistency).
+
+Recommended rollout: **start narrow and deep**, prove ROI with measurable guardrails, then scale horizontally.
 
 ---
 
