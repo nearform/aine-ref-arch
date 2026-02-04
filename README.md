@@ -32,7 +32,9 @@
   - [Agents](#agents)
     - [Skills](#skills)
     - [MCP Servers](#mcp-servers)
+    - [LSP Servers](#lsp-servers)
     - [Commands](#commands)
+    - [Plugins](#plugins)
     - [Autonomous agent roles (example)](#autonomous-agent-roles-example)
   - [Governance \& trust (Human‑in‑the‑loop)](#governance--trust-humanintheloop)
   - [Rollout strategy: enterprise‑wide vs domain pilots](#rollout-strategy-enterprisewide-vs-domain-pilots)
@@ -388,9 +390,21 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 - **Docker** - Container management and image operations.
 - **Granola** - Meeting transcript search and context retrieval.
 
+### LSP Servers
+
+Language Server Protocol (LSP) servers enable rapid integration of language-specific capabilities into the AI workflow. Agents can leverage LSPs for language-aware tasks: refactoring, code navigation, static analysis, and richer feedback loops. 
+LSPs can be particularly useful for legacy languages or propietary technologies which a foundation model may not have much exposure to in it's training data.  ]
+
+
 ### Commands
 
 Predefined agent workflows triggered by explicit user invocation. Commands provide predictable, repeatable agent behaviors for common tasks.
+
+
+### Plugins
+
+Plugins combine Skills, Agents, MCP Servers, LSP Servers and other primitives into a package which can be distributed to standardise across the enterprise. 
+The plugin specification for Claude Code at time of writing is the most comprehensive, but large elements of this are portable to Cursor.
 
 ### Autonomous agent roles (example)
 
@@ -410,7 +424,6 @@ Each agent has:
 ---
 
 ## Governance & trust (Human‑in‑the‑loop)
-
 
 Controls to build trust across the SDLC:
 - **Spec gates:** no code generation without an approved story spec.
