@@ -130,39 +130,50 @@ kanban
 
 ## Context Engineering Methods
 
-Context Engineering is how you make AI outputs **predictable**: you shape the inputs, constraints, and workflow so the model is doing bounded work.
+Context Engineering is the techniques used to right-size context such that a coding model has all the relevant information to complete a task. 
+This can include architectural preferences, requirements, acceptance criteria, visual references via designs, along with preferences for things like coding standards. 
+
+
+```mermaid
+flowchart LR
+  VC["Stage 1: Vibe Coding"]
+  AC["Stage 2: Agentic Completion"]
+  SDD["Stage 3: SDD"]
+  PM["Stage 4: Plan Mode"]
+  VC --> AC --> SDD --> PM
+```
+
+
+### Stage 1: Vibe Coding
+
+Most developer's first experience with Context Engineering comes from experimenting with Vibe coding.
+It is conceivably possible - albeit extremely unlikely - to context engineer a perfect enterprise software masterpiece in a one-shot vibe coded prompt. 
+This has lead us to develop frameworks which assist the model in including the most relevant pieces of context available for the task at hand. 
+Tactical autocomplete / chat‑driven coding. Useful for small, bounded tasks, but it does not scale without the other context engineering techniques.
+
+### Stage 2: Agentic Completion
+
+A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enables teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. 
 
 ### SDD (Spec‑Driven Development)
 
-SDD is the core Context Engineering lever. The source of truth is *written specs* (PRD/architecture/story spec), not a chat thread.
+SDD is the core Context Engineering lever for engineering teams looking to make the next evolution in context engineering maturity. The source of truth becomes *written specs* (PRD/architecture/story spec), rather than a chat thread.
 
 **Artifacts (typical):**
 - **Project constitution:** non‑negotiables (security, testing, style, deployment).
 - **PRD:** problem, users, requirements, constraints, success metrics.
-- **Architecture + ADRs:** system boundaries, interfaces, trade‑offs.
-- **Story specs:** per‑story markdown with acceptance criteria + test intent.
-
-**Workflow pattern:**
-1. Human clarifies intent and constraints.
-2. AI drafts specs (bounded) → human edits.
-3. AI implements tasks **only against specs**.
-4. CI + review gates validate outputs.
-
-### Plan Mode
-
-Require the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
+- **Architecture:** Logical structure, architectural preferences, tech stack of choice, service boundaries.
+- **Story specs:** per‑story markdown with requirements & acceptance criteria.
 
 ### EPCC
 
-A repeatable loop for producing reliable outputs from AI systems:
-- **E**xplore (clarify intent, gather context)
-- **P**lan (produce a concrete plan and acceptance criteria)
-- **C**reate (implement in small, reviewable increments)
-- **C**heck (tests, linters, policy gates, human review)
+A repeatable loop for producing reliable outputs from AI systems - **E**xplore, **P**lan, **C**reate, **C**heck. Promoted by AWS in learning material, but functionality extremely similar to SDD above. 
 
-### Vibe Coding
+### Plan Mode
 
-Tactical autocomplete / chat‑driven coding. Useful for small, bounded tasks, but it does not scale without the other context engineering techniques.
+At it's core, Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
+The use of Plan mode can be viewed as an alternative to authoring lengthy specs, instead forcing the model to jump straight to the definition of a backlog work item. 
+Plan mode requires great context engineering maturity - and is a potential graduation path from Spec Driven Development for high-performing teams who have managed the art of context engineering & right-sizing the information a model needs to be successful in a task. 
 
 ---
 

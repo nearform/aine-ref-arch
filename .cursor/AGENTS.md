@@ -1,0 +1,1 @@
+You have a doctrine file in `docs/doctrine.md` - use it to guide how you write about AI native engineering. 
