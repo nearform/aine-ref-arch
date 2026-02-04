@@ -75,6 +75,7 @@ kanban
     "Agentic QA Function"
     "Security Testing"
     "Static Analysis"
+    "AI-Assisted Code Review"
 
   Deployment
     "Predictive Release Management"
@@ -87,6 +88,7 @@ kanban
     "Interactive Runbooks"
     "Vulnerability Patching"
     "Dependency Updates"
+    "Channel Documentation Mining"
 ```
 
 
@@ -110,6 +112,7 @@ kanban
 - Generate unit/integration/e2e tests from requirements + code.
 - "Self‑healing" and robustness improvements (reduce flaky maintenance).
 - Security assistance: SAST explanations + patch suggestions + regression tests.
+- AI-assisted code review: as AI-native development increases the pace of PRs and artifacts, AI can help reviewers keep up by summarising changes, flagging risks, and checking against specs.
 
 ### 5) Deployment
 - IaC generation grounded in internal patterns (Terraform modules, policies).
@@ -118,7 +121,8 @@ kanban
 
 ### 6) Maintenance
 - Conversational ops: query logs/metrics and correlate incidents.
-- RAG over internal docs + code + tickets.
+- RAG over internal docs + code + tickets. Also valuable for onboarding: new team members can query indexed Slack/Teams history, past decisions, and tribal knowledge instead of searching manually.
+- Channel documentation mining: watch Slack/Teams channels for valuable project information, harvesting potential documentation and indexing content for future questions.
 - Continuous dependency hygiene: upgrades, patches, verification.
 - Modernisation: adding tests, mapping blast radius, incremental migrations.
 
