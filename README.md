@@ -81,9 +81,9 @@ This diagram describes the fundamental building blocks in enabling an organizati
 
 In order to have a productive approach to AINE, an enterprise needs to consider each of these areas:
 - **Context Engineering Methods**: How will the organization manage the context needed for an agent to build successfully with AI.
-- **AI-Enabled Tools**: What suite of existing off-the-shelf tools can the organisation either procure, or enable the AI functionality within, in order to move faster.
-- **Foundation Models**: Does the organization want to standardise on one suite of Foundation Models, and is the risk profile of the business such that a public model is an option, do they need to use a private model catalog on a hyperscaler, or do they need to host their own?
-- **Agents**: How will the coding & document authoring agents within the enterprise utilise a secure connectivity layer to maximise the context available to them when developing.
+- **AI-Enabled Tools**: What suite of existing off-the-shelf tools can the organization either procure, or enable the AI functionality within, in order to move faster.
+- **Foundation Models**: Does the organization want to standardize on one suite of Foundation Models, and is the risk profile of the business such that a public model is an option, or do they need to use a private model catalog on a hyperscaler, or do they need to host their own?
+- **Agents**: How will the coding & document authoring agents within the enterprise utilize a secure connectivity layer to maximise the context available to them when developing.
 
 This reference will dive deeper into each of these topics.  
 
@@ -190,14 +190,14 @@ flowchart LR
 
 ### Stage 1: Vibe Coding
 
-Most developer's first experience with Context Engineering comes from experimenting with Vibe coding.
+Most developers' first experience with Context Engineering comes from experimenting with Vibe coding.
 It is conceivably possible - albeit extremely unlikely - to context engineer a perfect enterprise software masterpiece in a one-shot vibe coded prompt. 
-This has lead us to develop frameworks which assist the model in including the most relevant pieces of context available for the task at hand. 
+This has led us to develop frameworks which assist the model in including the most relevant pieces of context available for the task at hand. 
 Tactical autocomplete / chat‑driven coding. Useful for small, bounded tasks, but it does not scale without the other context engineering techniques.
 
 ### Stage 2: Agentic Completion
 
-A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enables teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. 
+A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enable teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. 
 
 ### SDD (Spec‑Driven Development)
 
@@ -215,7 +215,7 @@ A repeatable loop for producing reliable outputs from AI systems - **E**xplore, 
 
 ### Plan Mode
 
-At it's core, Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
+At its core, Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
 The use of Plan mode can be viewed as an alternative to authoring lengthy specs, instead forcing the model to jump straight to the definition of a backlog work item. 
 Plan mode requires great context engineering maturity - and is a potential graduation path from Spec Driven Development for high-performing teams who have managed the art of context engineering & right-sizing the information a model needs to be successful in a task. 
 
@@ -393,7 +393,7 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 ### LSP Servers
 
 Language Server Protocol (LSP) servers enable rapid integration of language-specific capabilities into the AI workflow. Agents can leverage LSPs for language-aware tasks: refactoring, code navigation, static analysis, and richer feedback loops. 
-LSPs can be particularly useful for legacy languages or propietary technologies which a foundation model may not have much exposure to in it's training data.  ]
+LSPs can be particularly useful for legacy languages or proprietary technologies which a foundation model may not have much exposure to in its training data.
 
 
 ### Commands
@@ -440,7 +440,7 @@ Controls to build trust across the SDLC:
 Observed patterns across client rollouts:
 
 1) **Enterprise‑wide enablement (broad + shallow)**
-- Roll out IDE copilots, basic doc summarisation, lightweight test generation.
+- Roll out IDE copilots, basic doc summarization, lightweight test generation.
 - Produces **marginal but real** gains (often ~10% productivity).
 - Good for baseline competence; rarely transformational.
 
