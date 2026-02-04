@@ -37,6 +37,7 @@
     - [Plugins](#plugins)
     - [Autonomous agent roles (example)](#autonomous-agent-roles-example)
   - [Governance \& trust (Human‑in‑the‑loop)](#governance--trust-humanintheloop)
+  - [Working in Greenfield v.s. Brownfield Applications](#working-in-greenfield-vs-brownfield-applications)
   - [Rollout strategy: enterprise‑wide vs domain pilots](#rollout-strategy-enterprisewide-vs-domain-pilots)
   - [Reference architectures by trust profile](#reference-architectures-by-trust-profile)
     - [1) Progressive startup (low friction)](#1-progressive-startup-low-friction)
@@ -432,6 +433,26 @@ Controls to build trust across the SDLC:
 - **Provenance:** trace outputs back to prompts/specs/inputs.
 - **Environment separation:** sandbox vs staging vs prod credentials.
 - **Review model:** humans review changes; agents don't merge to main unassisted.
+
+---
+
+## Working in Greenfield v.s. Brownfield Applications
+
+"**Greenfield**" projects are new builds with minimal legacy constraints; "brownfield" projects inherit significant pre-existing code, architecture, or operational practices.
+
+**Greenfield (AI‑native) approach:**
+- Start with AI-native patterns from the outset: spec-driven workflows, ensure end-to-end test coverage from the beginning, and establish repo-level conventions.
+- Easier to establish **context engineering** best practices and standardized agentic workflows.
+- Choices about stack, architecture, and model integrations can prioritize maximum automation and context sharing.
+
+**Brownfield (modernization) approach:**
+- Adopt AI/agentic practices incrementally. Begin with test generation, documentation mining, and refactoring tooling.
+- Use RAG (Retrieval-Augmented Generation) agents to extract latent context from existing code, docs, and tickets - and ensure this is written in a format agents can interpret and understand. 
+- Gradually introduce spec-driven development, agent intermediaries, and interactive runbooks to raise SDLC leverage.
+
+**Contrast:**
+- Greenfield lets you design for **AI leverage** from day one; brownfield focuses on identifying "high-value seams" in legacy code where agents can help most.
+- Brownfield work in the beginning can benefits from **hybrid approaches**: combine traditional silos with agentic overlays and work towards unification over time.
 
 ---
 
