@@ -13,9 +13,9 @@
   - [Context Engineering Methods](#context-engineering-methods)
     - [Stage 1: Vibe Coding](#stage-1-vibe-coding)
     - [Stage 2: Agentic Completion](#stage-2-agentic-completion)
-    - [SDD (Spec‑Driven Development)](#sdd-specdriven-development)
-    - [EPCC](#epcc)
-    - [Plan Mode](#plan-mode)
+    - [Stage 3: SDD (Spec‑Driven Development)](#stage-3-sdd-specdriven-development)
+      - [EPCC](#epcc)
+    - [Stage 4: Plan Mode](#stage-4-plan-mode)
   - [AI Enabled Tools](#ai-enabled-tools)
     - [Design Tools](#design-tools)
     - [Rapid Prototyping (Bolt/Lovable/etc.)](#rapid-prototyping-boltlovableetc)
@@ -200,7 +200,7 @@ Tactical autocomplete / chat‑driven coding. Useful for small, bounded tasks, b
 
 A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enable teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. 
 
-### SDD (Spec‑Driven Development)
+### Stage 3: SDD (Spec‑Driven Development)
 
 SDD is the core Context Engineering lever for engineering teams looking to make the next evolution in context engineering maturity. The source of truth becomes *written specs* (PRD/architecture/story spec), rather than a chat thread.
 
@@ -210,11 +210,11 @@ SDD is the core Context Engineering lever for engineering teams looking to make 
 - **Architecture:** Logical structure, architectural preferences, tech stack of choice, service boundaries.
 - **Story specs:** per‑story markdown with requirements & acceptance criteria.
 
-### EPCC
+#### EPCC
 
 A repeatable loop for producing reliable outputs from AI systems - **E**xplore, **P**lan, **C**reate, **C**heck. Promoted by AWS in learning material, but functionality extremely similar to SDD above. 
 
-### Plan Mode
+### Stage 4: Plan Mode
 
 At its core, Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
 The use of Plan mode can be viewed as an alternative to authoring lengthy specs, instead forcing the model to jump straight to the definition of a backlog work item. 
