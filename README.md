@@ -1,27 +1,45 @@
 # Reference Architecture: AI‑Native SDLC (AINE)
 
-This document describes a **reference architecture for AI‑Native Engineering**—how to redesign the software delivery lifecycle so that AI is a **first‑class participant**.
+This document describes a **reference architecture for AI‑Native Engineering** (abbreviated "AINE" herein) — how to redesign the software delivery lifecycle so that AI is a **first‑class participant**.
 
 It is intentionally **capability‑first** (what AI enables across the SDLC) rather than a fixed shopping list of tools. Tool examples are included to make the architecture concrete.
 
-## AINE taxonomy (doctrine)
+## AINE taxonomy
 
 ```mermaid
 graph TD
   AINE[AINE]
 
-  AINE --> CE[Context Engineering]
-  AINE --> DT[Design tools]
-  AINE --> BA[Brainstorming Agents]
-  AINE --> TA[Testing Agents]
+  AINE --> CE[Context Engineering Methods]
+  AINE --> DT[AI Enabled Tools]
+  AINE --> FM[Foundation Models]
+  AINE --> AG[Agents]
 
   CE --> SDD[SDD]
   CE --> PM[Plan Mode]
   CE --> EPCC[EPCC]
   CE --> VC[Vibe Coding]
+
+  DT --> DST[Design Tools]
+  DT --> RT[Rapid Prototyping Tools]
+  DT --> IDE[IDEs]
+  DT --> OP[Office Productivity Suite]
+  DT --> MT[Meeting Transcription]
+  FM --> CM[Coding Models]
+  FM --> CS[Chat Models]
+
+  AG --> SK[Skills]
+  AG --> MC[MCP Servers]
+  AG --> AC[Commands]
 ```
 
-Key point: **Enabling Copilot/Cursor is not an AINE strategy.** That’s *one leaf* (Vibe Coding) under Context Engineering. AINE is the whole tree: specs, roles, agents, tools, and governance.
+This taxonomy describes the fundemental building blocks in enabling an organization to transition to working AI-natively.  
+  
+In order to have a productive approach to AINE, an enterprise needs to consider each of these concerns:
+*Context Engineering*: How will the organization manage the context needed for an agent to build successfully with AI. 
+*AI-enabled tools*: What suite of existing off-the-shelf tools can the organisation either procure, or enable the AI functionality within, in order to move faster. 
+Foundation Model: Does the organization want to standardise on one suite of Foundation Models, and is the risk profile of the business such that a public model is an option, do they need to use a private model catalog on a hyperscalar, or do they need to host their own? 
+*Agents*: How will the coding & document authoring agents within the enterprise utilise a secure connectivity layer to maximise the context available to them when developing. 
 
 ---
 
@@ -35,7 +53,7 @@ Observed patterns across client rollouts:
 - Good for baseline competence; rarely transformational.
 
 2) **Domain‑level acceleration (narrow + deep)**
-- Pick a project/domain well‑suited to AI‑native delivery (greenfield build, modernisation, “gnarly” repetitive workflows).
+- Pick a project/domain well‑suited to AI‑native delivery (greenfield build, modernisation).
 - Invest in **context engineering** (specs, architecture, conventions), **agentic workflows**, and CI/CD integration.
 - Can yield **3–5× acceleration** with better quality (tests, documentation, consistency).
 
@@ -102,7 +120,6 @@ Choose the model **and** the operating model (privacy, latency, cost, governance
 **Decision axes**
 - **Data sensitivity:** what can leave your network?
 - **Auditability:** do you need event logs, retention, DLP?
-- **Latency & availability:** interactive IDE vs batch jobs.
 - **Cost controls:** per‑token sprawl vs pooled budget.
 
 **Reference options**
@@ -115,6 +132,7 @@ Choose the model **and** the operating model (privacy, latency, cost, governance
 ### Transcription / meeting intelligence
 - Best‑in‑class output matters because these artifacts become **upstream context** for specs.
 - Enterprise considerations: retention, redaction, PII handling, “train on your data” defaults, and admin controls.
+- Some tools offer a RAG-like store of previous meeting context which can be searched over & new output generated - this proves very useful longitudally. 
 
 ### Rapid prototyping (Bolt/Lovable/etc.)
 Use deliberately:
