@@ -1,5 +1,47 @@
 # Reference Architecture: AI‑Native SDLC (AINE)
 
+
+- [Reference Architecture: AI‑Native SDLC (AINE)](#reference-architecture-ainative-sdlc-aine)
+  - [The AINE Building Blocks](#the-aine-building-blocks)
+  - [Where AI assists in the SDLC (capabilities)](#where-ai-assists-in-the-sdlc-capabilities)
+    - [1) Product](#1-product)
+    - [2) Design](#2-design)
+    - [3) Implementation](#3-implementation)
+    - [4) Testing](#4-testing)
+    - [5) Deployment](#5-deployment)
+    - [6) Maintenance](#6-maintenance)
+  - [Context Engineering Methods](#context-engineering-methods)
+    - [Stage 1: Vibe Coding](#stage-1-vibe-coding)
+    - [Stage 2: Agentic Completion](#stage-2-agentic-completion)
+    - [SDD (Spec‑Driven Development)](#sdd-specdriven-development)
+    - [EPCC](#epcc)
+    - [Plan Mode](#plan-mode)
+  - [AI Enabled Tools](#ai-enabled-tools)
+    - [Design Tools](#design-tools)
+    - [Rapid Prototyping (Bolt/Lovable/etc.)](#rapid-prototyping-boltlovableetc)
+    - [Spec-Driven Development Frameworks](#spec-driven-development-frameworks)
+    - [IDEs (Agentic IDEs)](#ides-agentic-ides)
+    - [Office Productivity Suite](#office-productivity-suite)
+    - [Transcription / Meeting Intelligence](#transcription--meeting-intelligence)
+    - [Channel Documentation / Knowledge Mining](#channel-documentation--knowledge-mining)
+    - [Interactive Runbooks](#interactive-runbooks)
+  - [Foundation Models](#foundation-models)
+    - [Coding Models](#coding-models)
+    - [Chat Models](#chat-models)
+    - [Public LLM vs private endpoints vs dedicated/on‑prem](#public-llm-vs-private-endpoints-vs-dedicatedonprem)
+  - [Agents](#agents)
+    - [Skills](#skills)
+    - [MCP Servers](#mcp-servers)
+    - [Commands](#commands)
+    - [Autonomous agent roles (example)](#autonomous-agent-roles-example)
+  - [Governance \& trust (Human‑in‑the‑loop)](#governance--trust-humanintheloop)
+  - [Rollout strategy: enterprise‑wide vs domain pilots](#rollout-strategy-enterprisewide-vs-domain-pilots)
+  - [Reference architectures by trust profile](#reference-architectures-by-trust-profile)
+    - [1) Progressive startup (low friction)](#1-progressive-startup-low-friction)
+    - [2) Enterprise (private endpoints)](#2-enterprise-private-endpoints)
+    - [3) Highly regulated industry (data sovereignty)](#3-highly-regulated-industry-data-sovereignty)
+
+
 This document describes a **reference architecture for AI‑Native Engineering** (abbreviated "AINE" herein) — how to redesign the software delivery lifecycle so that AI is a **first‑class participant**.
 
 It is intentionally **capability‑first** (what AI enables across the SDLC) rather than a fixed shopping list of tools. Tool examples are included to make the architecture concrete.
@@ -195,6 +237,15 @@ Tools like Bolt, Lovable, v0, etc. Use deliberately:
 - Treat output as **throwaway prototypes** unless you're prepared to harden it.
 - If you keep it, ingest it as **brownfield**: add tests, codify standards, refactor to your architecture.
 
+### Spec-Driven Development Frameworks
+
+Frameworks that provide structured methodologies for context engineering and spec-driven workflows. These help teams move beyond vibe coding to repeatable, scalable AI-native delivery.
+
+**Tool examples:**
+- **SpecKit** - Framework for structured spec authoring and agent orchestration.
+- **BMAD Method** - Comprehensive spec-driven workflow with strong role definitions and workflow structure.
+- **Amazon Kiro** - IDE with built-in spec-driven primitives: requirements, design docs, and task/backlog workflows.
+
 ### IDEs (Agentic IDEs)
 
 Next‑generation IDEs are not "better autocomplete"; they are **workflow orchestration surfaces**:
@@ -207,6 +258,7 @@ Next‑generation IDEs are not "better autocomplete"; they are **workflow orches
 - **Amazon Kiro** - Great tool for spec-driven development with built-in requirements, design docs, and task/backlog workflows.
 - **Cursor** - Powerful agentic IDE with Plan mode increasingly converging on spec-driven primitives.
 - **Visual Studio Code** - Excellent integration with AI tools and extensions for spec-driven connectivity.
+- **GitHub Copilot** - Agentic coding assistant with chat, completions, and MCP support across multiple IDEs.
 
 **Practical advice:**
 - Standardise **rules** (CursorRules / IDE rules) at repo + org level.
@@ -260,9 +312,19 @@ Choose the model **and** the operating model (privacy, latency, cost, governance
 
 Models optimized for code generation, completion, and understanding. These power IDE copilots, code review assistance, and implementation agents.
 
+**Tool examples:**
+- **Claude** (Anthropic) - with Opus generally considered best-in-class
+- **Codex** (OpenAI) - vastly improved in recent benchmarks.
+- **Groq** - High-speed inference for supported open models.
+
 ### Chat Models
 
 General-purpose conversational models for spec drafting, brainstorming, documentation, and analysis tasks.
+
+**Tool examples:**
+- **NotebookLM** (Google) - Research and document analysis with source grounding.
+- **Claude** (Anthropic) - Excellent for long-form spec drafting and analysis.
+- **ChatGPT** (OpenAI) - Broad general-purpose assistant capabilities.
 
 ### Public LLM vs private endpoints vs dedicated/on‑prem
 
@@ -287,6 +349,11 @@ Agents are AI systems that can take autonomous action within defined boundaries.
 ### Skills
 
 Reusable, composable capabilities that agents can invoke. Skills encapsulate domain knowledge and task patterns that can be shared across projects and teams.
+Repositories of skills exist online which you can ingest into your project:
+* [Tessl Skills Registry](https://tessl.io/registry)
+* [Vercel's Skills.sh](https://skills.sh)
+
+You can also author your own skills for distribution within your enterprise. 
 
 ### MCP Servers
 
@@ -299,7 +366,7 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 **Best practices:**
 - Run MCP servers **inside your trust boundary** (VPC/on‑prem) where possible.
 - Use **least privilege**: separate tokens per tool and per environment (dev/stage/prod).
-- Put MCP behind **authn/z** (mTLS/OIDC), with per‑tool allowlists.
+- Put MCP behind **authn/z** with per‑tool allowlists.
 - Add **auditing**: log tool calls with inputs/outputs (redact secrets), user, repo, and ticket/spec reference.
 - Rate limit and sandbox: treat MCP as part of your **attack surface**.
 
@@ -310,6 +377,16 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 - **Figma** - Design asset access and design-to-code workflows.
 - **Microsoft Teams** - Communication and collaboration context.
 - **AWS** - Cloud infrastructure management and resource access.
+- **Slack** - Channel history, search, and messaging integration.
+- **Zoom** - Meeting context and recording access.
+- **Notion** - Documentation and knowledge base integration.
+- **GitHub (github-mcp-server)** - Repository, issues, PRs, and actions integration.
+- **Snyk** - Security vulnerability scanning and remediation.
+- **SonarQube** - Code quality and static analysis results.
+- **Terraform** - Infrastructure as Code state and plan access.
+- **Playwright** - Test automation and browser interaction.
+- **Docker** - Container management and image operations.
+- **Granola** - Meeting transcript search and context retrieval.
 
 ### Commands
 
@@ -334,12 +411,11 @@ Each agent has:
 
 ## Governance & trust (Human‑in‑the‑loop)
 
-Trust isn't a vibe; it's engineered.
 
 Controls to build trust across the SDLC:
 - **Spec gates:** no code generation without an approved story spec.
 - **Determinism:** require "diff‑only" changes for certain tasks.
-- **Policy as code:** linting, formatting, SAST, secrets scanning.
+- **Policy as code:** linting, formatting, secrets scanning.
 - **Provenance:** trace outputs back to prompts/specs/inputs.
 - **Environment separation:** sandbox vs staging vs prod credentials.
 - **Review model:** humans review changes; agents don't merge to main unassisted.
@@ -390,7 +466,3 @@ Cloud mapping (illustrative):
 - **Change control:** enforced stage gates, mandatory human approvals, reproducible builds.
 
 ---
-
-## Appendix: original notes dump
-
-The original Google Doc export was captured in the initial commit for traceability.
