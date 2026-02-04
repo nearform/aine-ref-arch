@@ -203,6 +203,11 @@ Next‑generation IDEs are not "better autocomplete"; they are **workflow orches
 - Integrated test/run/trace loops
 - Repository‑wide context management
 
+**Tool examples:**
+- **Amazon Kiro** - Great tool for spec-driven development with built-in requirements, design docs, and task/backlog workflows.
+- **Cursor** - Powerful agentic IDE with Plan mode increasingly converging on spec-driven primitives.
+- **Visual Studio Code** - Excellent integration with AI tools and extensions for spec-driven connectivity.
+
 **Practical advice:**
 - Standardise **rules** (CursorRules / IDE rules) at repo + org level.
 - Require agents to emit **work logs** and link to specs/decisions.
@@ -219,6 +224,31 @@ AI-enabled document editing, spreadsheet analysis, and presentation generation. 
 - Best‑in‑class output matters because these artifacts become **upstream context** for specs.
 - Enterprise considerations: retention, redaction, PII handling, "train on your data" defaults, and admin controls.
 - Some tools offer a RAG-like store of previous meeting context which can be searched over & new output generated - this proves very useful longitudinally.
+
+**Tool examples:**
+- **Granola** - Particularly useful for its RAG-like database where you can ask questions of previous meetings and search history.
+- **Zoom AI Companion** - Built-in transcription and meeting summaries.
+- **Microsoft Teams Transcripts** - Native transcription integrated with the Teams ecosystem.
+
+### Channel Documentation / Knowledge Mining
+
+Tools that watch Slack/Teams channels and harvest valuable project information. These help with:
+- Indexing content for future questions using RAG (Retrieval Augmented Generation)
+- Onboarding bots that new team members can query for tribal knowledge
+- Surfacing past decisions and discussions without manual searching
+
+**Tool examples:**
+- **Slack AI** - Native search and summarization across Slack channels and history.
+- Custom RAG solutions built on conversation exports and vector databases.
+
+### Interactive Runbooks
+
+When systems go down, having AI-assisted runbooks becomes critically important. These tools help on-call engineers diagnose and resolve issues faster.
+
+**Tool examples:**
+- **ChatGPT GPTs** - Custom GPTs configured with runbook knowledge and troubleshooting procedures.
+- **Gemini Gems** - Google's equivalent for creating specialized assistants with operational knowledge.
+- **Claude Projects** - Anthropic's project-based context for embedding runbook documentation.
 
 ---
 
@@ -272,6 +302,14 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 - Put MCP behind **authn/z** (mTLS/OIDC), with per‑tool allowlists.
 - Add **auditing**: log tool calls with inputs/outputs (redact secrets), user, repo, and ticket/spec reference.
 - Rate limit and sandbox: treat MCP as part of your **attack surface**.
+
+**Common MCP server examples:**
+- **Jira** - Issue tracking and backlog synchronization.
+- **Confluence** - Documentation and knowledge base access.
+- **Azure DevOps** - Work items, pipelines, and repository integration.
+- **Figma** - Design asset access and design-to-code workflows.
+- **Microsoft Teams** - Communication and collaboration context.
+- **AWS** - Cloud infrastructure management and resource access.
 
 ### Commands
 
