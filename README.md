@@ -11,11 +11,11 @@
     - [5) Deployment](#5-deployment)
     - [6) Maintenance](#6-maintenance)
   - [Context Engineering Methods](#context-engineering-methods)
-    - [Stage 1: Vibe Coding](#stage-1-vibe-coding)
+    - [Stage 1: AI Assisted Coding](#stage-1-ai-assisted-coding)
     - [Stage 2: Agentic Completion](#stage-2-agentic-completion)
     - [Stage 3: SDD (Spec‑Driven Development)](#stage-3-sdd-specdriven-development)
-      - [EPCC](#epcc)
-    - [Stage 4: Plan Mode](#stage-4-plan-mode)
+      - [Plan Mode (as a technique)](#plan-mode-as-a-technique)
+    - [Stage 4: Agentic Orchestration](#stage-4-agentic-orchestration)
   - [AI Enabled Tools](#ai-enabled-tools)
     - [Design Tools](#design-tools)
     - [Rapid Prototyping (Bolt/Lovable/etc.)](#rapid-prototyping-boltlovableetc)
@@ -62,7 +62,6 @@ graph TD
 
   CE --> SDD[SDD]
   CE --> PM[Plan Mode]
-  CE --> EPCC[EPCC]
   CE --> VC[Vibe Coding]
 
   DT --> DST[Design Tools]
@@ -175,50 +174,71 @@ kanban
 
 ## Context Engineering Methods
 
-Context Engineering is the techniques used to right-size context such that a coding model has all the relevant information to complete a task. 
-This can include architectural preferences, requirements, acceptance criteria, visual references via designs, along with preferences for things like coding standards. 
-
+Context Engineering is the techniques used to right-size context such that a coding model has all the relevant information to complete a task.
+This can include architectural preferences, requirements, acceptance criteria, visual references via designs, along with preferences for things like coding standards.
 
 ```mermaid
 flowchart LR
-  VC["Stage 1: Vibe Coding"]
-  AC["Stage 2: Agentic Completion"]
-  SDD["Stage 3: SDD"]
-  PM["Stage 4: Plan Mode"]
-  VC --> AC --> SDD --> PM
+  A1["Stage 1: AI Assisted Coding"]
+  A2["Stage 2: Agentic Completion"]
+  A3["Stage 3: SDD (Spec-Driven Development)"]
+  A4["Stage 4: Agentic Orchestration"]
+  A1 --> A2 --> A3 --> A4
 ```
 
-
-### Stage 1: Vibe Coding
+### Stage 1: AI Assisted Coding
 
 Most developers' first experience with Context Engineering comes from experimenting with Vibe coding.
-It is conceivably possible - albeit extremely unlikely - to context engineer a perfect enterprise software masterpiece in a one-shot vibe coded prompt. 
-This has led us to develop frameworks which assist the model in including the most relevant pieces of context available for the task at hand. 
+It is conceivably possible - albeit extremely unlikely - to context engineer a perfect enterprise software masterpiece in a one-shot vibe coded prompt.
+This has led us to develop frameworks which assist the model in including the most relevant pieces of context available for the task at hand.
 Tactical autocomplete / chat‑driven coding. Useful for small, bounded tasks, but it does not scale without the other context engineering techniques.
+People typically start vibe coding at this stage.
 
 ### Stage 2: Agentic Completion
 
-A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enable teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. 
+A natural next step is to use the built-in Agent mode that comes with most AI-enabled IDEs. This can enable teams to complete discrete changes across several files, but often struggles to scale. The model can often get stuck in debugging loops, or fail to complete tasks successfully. This is essentially still vibe coding — a one‑shot prompt + a single context window that tends to fail over time due to forgotten requirements, arbitrary re‑tooling, under‑completeness, and context exhaustion.
+
+Stage 2 is often where teams first feel the need for *structured artifacts*.
 
 ### Stage 3: SDD (Spec‑Driven Development)
 
-SDD is the core Context Engineering lever for engineering teams looking to make the next evolution in context engineering maturity. The source of truth becomes *written specs* (PRD/architecture/story spec), rather than a chat thread.
+SDD is the core Context Engineering lever for teams trying to scale beyond vibe coding.
+The source of truth becomes **written specs** (PRD/architecture/story spec), not a chat thread.
+
+**Why it works:** models perform far better when they first decompose the problem, articulate structure, and then build using that structured context.
 
 **Artifacts (typical):**
-- **Project constitution:** non‑negotiables (security, testing, style, deployment).
-- **PRD:** problem, users, requirements, constraints, success metrics.
-- **Architecture:** Logical structure, architectural preferences, tech stack of choice, service boundaries.
-- **Story specs:** per‑story markdown with requirements & acceptance criteria.
+- **PRD.md** — problem, users, requirements, constraints, success metrics.
+- **arch.md** — boundaries, tech choices, interfaces, non‑functional requirements.
+- **constitution.md** — non‑negotiables (security, testing, style, deployment).
+- **backlog.md** — decomposed stories with ordering.
+- **story-*.md** — per‑story requirements + acceptance criteria.
 
-#### EPCC
+- **skills** — Product, Technical Director, Backend Engineer, Frontend Engineer, QA.
 
-A repeatable loop for producing reliable outputs from AI systems - **E**xplore, **P**lan, **C**reate, **C**heck. Promoted by AWS in learning material, but functionality extremely similar to SDD above. 
+#### Plan Mode (as a technique)
 
-### Stage 4: Plan Mode
+Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code.
+Use it as:
+- a checkpoint before execution, and/or
+- a way to jump directly to a backlog plan when specs are intentionally lightweight.
 
-At its core, Plan Mode requires the model to propose a plan (tasks, risks, assumptions) *before* writing/altering code. This creates a checkpoint where humans can validate approach before implementation begins.
-The use of Plan mode can be viewed as an alternative to authoring lengthy specs, instead forcing the model to jump straight to the definition of a backlog work item. 
-Plan mode requires great context engineering maturity - and is a potential graduation path from Spec Driven Development for high-performing teams who have managed the art of context engineering & right-sizing the information a model needs to be successful in a task. 
+When a user feels they've mastered SDD as a technique and can manage without an opinionated framework or workflow, Plan Mode may be all they need. It serves as a potential graduation path from Spec‑Driven Development for high‑performing teams who have mastered the art of context engineering and right‑sizing the information a model needs to be successful.
+
+### Stage 4: Agentic Orchestration
+
+At the orchestration frontier, the human becomes closer to a **Product Manager / overseer**, and the system becomes an **idea compiler**:
+- you author specs and decomposition;
+- parallel agents execute in bounded chunks;
+- trust is **systemic** (encoded in specs, guardrails, tests, static analysis), because line‑by‑line review is no longer feasible.
+
+**Anatomy of an orchestration system (primitives):**
+- **Work primitives:** atomic tasks → epics → chained workflows → trackable delivery units.
+- **Specialised roles:** concierge, swarm workers, merge agents (not N identical clones).
+- **Persistent state & recovery:** git‑backed state so sessions resume after crashes/context exhaustion.
+- **Mailbox & messaging:** async handoffs and nudges; orchestration nervous system.
+- **Handoffs as core loop:** bounded work → persist state → handoff → restart.
+- **Graceful degradation:** scale from 1 agent to 30+ without architectural change.
 
 ---
 
