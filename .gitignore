@@ -14,5 +14,8 @@ Thumbs.db
 *.swp
 *~
 
+# Environment
+.env
+
 # Claude Code
 .claude/
