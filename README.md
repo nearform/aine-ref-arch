@@ -15,6 +15,7 @@
     - [Stage 2: Agentic Completion](#stage-2-agentic-completion)
     - [Stage 3: SDD (Spec‑Driven Development)](#stage-3-sdd-specdriven-development)
       - [Plan Mode (as a technique)](#plan-mode-as-a-technique)
+      - [When SDD Is Not the Right Fit](#when-sdd-is-not-the-right-fit)
     - [Stage 4: Agentic Orchestration](#stage-4-agentic-orchestration)
   - [AI Enabled Tools](#ai-enabled-tools)
     - [Design Tools](#design-tools)
@@ -37,6 +38,10 @@
     - [Plugins](#plugins)
     - [Autonomous agent roles (example)](#autonomous-agent-roles-example)
   - [Governance \& trust (Human‑in‑the‑loop)](#governance--trust-humanintheloop)
+  - [Team Practices for AI‑Native Delivery](#team-practices-for-ainative-delivery)
+    - [Splitting Work to Avoid Conflicts](#splitting-work-to-avoid-conflicts)
+    - [Pair / Ensemble Programming for Alignment](#pair--ensemble-programming-for-alignment)
+    - [How Code Reviews Change](#how-code-reviews-change)
   - [Working in Greenfield v.s. Brownfield Applications](#working-in-greenfield-vs-brownfield-applications)
   - [Rollout strategy: enterprise‑wide vs domain pilots](#rollout-strategy-enterprisewide-vs-domain-pilots)
   - [Reference architectures by trust profile](#reference-architectures-by-trust-profile)
@@ -145,6 +150,7 @@ kanban
 - Rapid UI/flow prototyping, early stakeholder alignment.
 - Architecture exploration: decomposition, data flows, threat models, ADRs.
 - Option generation: compare alternatives with explicit trade‑offs.
+- **Design without a designer:** for straightforward problems with an existing design system, AI can produce good‑enough mockups. A typical pattern: feed a PRD summary into an AI design tool (e.g. Google Stitch), apply minor tweaks, and present to stakeholders. A dedicated designer is still better for complex, multi‑page work — but teams can now produce basic designs autonomously when budget or availability doesn't allow a specialist.
 
 ### 3) Implementation
 - Bootstrapping: create skeletons aligned to your stack and conventions.
@@ -162,6 +168,7 @@ kanban
 - IaC generation grounded in internal patterns (Terraform modules, policies).
 - Environment drift detection, safe rollout plans, release notes.
 - Operational readiness: runbooks, dashboards, on‑call playbooks.
+- **DevOps with AI:** developers can write and update Terraform with AI assistance while a DevOps expert reviews before merge. For bigger infrastructure work the specialist leads with AI help; for smaller changes (pipelines, config updates) developers handle it directly. Once IaC patterns are in place, AI is good at following and extending existing code. This enables a part‑time DevOps model that avoids bottlenecks without sacrificing quality.
 
 ### 6) Maintenance
 - Conversational ops: query logs/metrics and correlate incidents.
@@ -208,13 +215,15 @@ The source of truth becomes **written specs** (PRD/architecture/story spec), not
 **Why it works:** models perform far better when they first decompose the problem, articulate structure, and then build using that structured context.
 
 **Artifacts (typical):**
+Keep your context structure **flat and simple** — avoid deep nesting or over‑engineering, `/docs` is likely sufficient. A typical layout includes:
 - **PRD.md** — problem, users, requirements, constraints, success metrics.
 - **arch.md** — boundaries, tech choices, interfaces, non‑functional requirements.
-- **constitution.md** — non‑negotiables (security, testing, style, deployment).
+- **AGENTS.md** — or CLAUDE.md, a sort of project constitution - non‑negotiables (security, testing, style, deployment).
 - **backlog.md** — decomposed stories with ordering.
 - **story-*.md** — per‑story requirements + acceptance criteria.
-
 - **skills** — Product, Technical Director, Backend Engineer, Frontend Engineer, QA.
+
+Much of the context of these main docs (architecture, PRD) will drift slightly over time, but a well‑structured SDD framework will research the codebase during implementation plan creation, finding relevant files and patterns even when top‑level docs aren't perfectly current. Plan periodic refreshes of architecture and PRD documents, but don't let slight drift become a blocker.
 
 #### Plan Mode (as a technique)
 
@@ -223,7 +232,19 @@ Use it as:
 - a checkpoint before execution, and/or
 - a way to jump directly to a backlog plan when specs are intentionally lightweight.
 
-When a user feels they've mastered SDD as a technique and can manage without an opinionated framework or workflow, Plan Mode may be all they need. It serves as a potential graduation path from Spec‑Driven Development for high‑performing teams who have mastered the art of context engineering and right‑sizing the information a model needs to be successful.
+When a user feels they've mastered SDD as a technique and can manage without an opinionated framework or workflow, Plan Mode may be all they need. Using it to author markdown specs, it serves as a potential graduation path from tight workflows encoded in Spec‑Driven Development frameworks for high‑performing teams who have mastered the art of context engineering and right‑sizing the information a model needs to be successful.
+
+#### When SDD Is Not the Right Fit
+
+SDD is a tool, not a rule — use it when it adds value, skip it when it adds friction.
+
+**Rule of thumb:** if the feature takes less than a couple of hours without AI, SDD is not worth it. For small tasks (a script, a minor tweak, a config change), a direct prompt or Plan Mode is faster. Don't force teams towards SDD for everything.
+
+SDD is also not the right starting point when you **can't clearly define the problem and expected outcome**. If a task requires research, prototyping, or exploration before you know enough to write a proper spec, use a **two‑phase approach:**
+1. **Phase 1 — Exploration:** research, POCs, experiments (vibe coding, plan mode, rapid prototyping tools).
+2. **Phase 2 — SDD:** use the findings from Phase 1 as the foundation for a proper spec.
+
+This avoids writing specs for work you don't yet understand, while ensuring that production code still benefits from structured context.
 
 ### Stage 4: Agentic Orchestration
 
@@ -376,7 +397,19 @@ Repositories of skills exist online which you can ingest into your project:
 * [Tessl Skills Registry](https://tessl.io/registry)
 * [Vercel's Skills.sh](https://skills.sh)
 
-You can also author your own skills for distribution within your enterprise. 
+You can also author your own skills for distribution within your enterprise.
+
+**When to create a skill:**
+- **Rule of thumb:** if you do something similar more than once, create a skill. Also: if a workflow might be useful to a colleague, turn it into a skill.
+- **Creation pattern:** do the workflow manually first, then ask the agent to convert it into a skill retroactively. This is low‑cost — a small review of the generated skill is all that's needed. Don't overthink it.
+- **Share everything:** all skills should be version‑controlled and in the repository. No personal or local‑only skills — every skill is shared with the entire team.
+
+**Example skill categories:**
+- Code cleanup (e.g. dead code / unused import removal via tools like Knip)
+- Security analysis (e.g. OWASP‑based scan of the codebase)
+- Board synchronisation (e.g. sync story state to project management tool via MCP)
+- Documentation generation (e.g. Mermaid diagrams, Gantt chart maintenance)
+- Data analysis (e.g. analysing production logs or user feedback to surface improvement areas)
 
 ### MCP Servers
 
@@ -392,6 +425,10 @@ Model Context Protocol (MCP) turns tools into **typed, permissioned capabilities
 - Put MCP behind **authn/z** with per‑tool allowlists.
 - Add **auditing**: log tool calls with inputs/outputs (redact secrets), user, repo, and ticket/spec reference.
 - Rate limit and sandbox: treat MCP as part of your **attack surface**.
+
+**MCP for framework and SDK documentation:**
+
+MCP servers aren't just for project management tools — they are equally valuable as **documentation context** for frameworks and SDKs the project uses. Without framework‑aware MCP, coding agents tend to hallucinate APIs or produce overly complex implementations that reinvent existing framework features. With it, agents retrieve the correct APIs, understand when and how to use them, and produce cleaner implementations. If you're using a framework with an available MCP server, adding it to the agent's toolset is one of the highest‑leverage context engineering moves you can make.
 
 **Common MCP server examples:**
 - **Jira** - Issue tracking and backlog synchronization.
@@ -453,6 +490,34 @@ Controls to build trust across the SDLC:
 - **Provenance:** trace outputs back to prompts/specs/inputs.
 - **Environment separation:** sandbox vs staging vs prod credentials.
 - **Review model:** humans review changes; agents don't merge to main unassisted.
+- **Board sync:** use MCP integrations to keep project boards synchronised with actual delivery state, reducing manual board maintenance overhead.
+- **Progressive tooling:** add tools and infrastructure gradually, only when needed. Build quick internal tools for immediate needs (e.g. a bespoke trace visualiser for debugging), then replace with production‑grade solutions later. AI makes this fast prototyping practical.
+
+---
+
+## Team Practices for AI‑Native Delivery
+
+Adopting AINE changes how teams organise, collaborate, and review work — not just how individuals write code.
+
+### Splitting Work to Avoid Conflicts
+
+With AI assistance, engineers move fast and touch a lot of code — which creates frequent merge conflicts. The recommended approach is to assign different **streams of work** to different engineers, rather than different tasks within the same story. For example: one engineer on the backend API, another on the ingestion pipeline, a third on the frontend. This lets people move at high velocity without stepping on each other.
+
+### Pair / Ensemble Programming for Alignment
+
+When a team is adopting AINE, individuals can drift from the shared workflow. Pair or ensemble programming sessions are recommended:
+- **At the start** — to build shared habits and a common understanding of the toolset.
+- **Periodically** — to ensure everyone is using the same approach and to course‑correct drift.
+
+These sessions are especially valuable for exchanging context and keeping the team aligned on which techniques to use for different types of work.
+
+### How Code Reviews Change
+
+AI‑native development shifts the character of code review:
+- **Less time on style** — formatting, naming, and import ordering are largely enforced by the agent during writing.
+- **More time on substance** — reviewers focus on logic, flow, architectural fit, and whether constraints are respected.
+- **Self‑review first** — authors should review their own AI‑generated changes before creating a PR, catching obvious issues early.
+- **Pair reviews** — for complex changes, the author and reviewer walk through the code together. This is practical and helps exchange context, especially when the review tooling is limited.
 
 ---
 
@@ -491,6 +556,11 @@ Observed patterns across client rollouts:
 - Can yield **3–5× acceleration** with better quality (tests, documentation, consistency).
 
 Recommended rollout: **start narrow and deep**, prove ROI with measurable guardrails, then scale horizontally.
+
+**Practical adoption guidance:**
+- **Attitude matters enormously.** Teams with genuine excitement adopt fast — proficiency within roughly a week. Resistance slows adoption significantly. Keep the introduction simple: point the team to documentation with minimal formal setup, and let them learn by doing.
+- **"Proficient" means** understanding the tools, the workflow, and critically *when to use which approach* (e.g. when SDD adds value vs. when a direct prompt is faster).
+- **Understand tooling constraints early.** What tools are presently in use? What are the restrictions? (e.g. MCP access blocked, specific IDE mandated, approved tool registries required.) These constraints directly affect delivery speed and must be scoped into planning from the start.
 
 ---
 
