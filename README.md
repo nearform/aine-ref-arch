@@ -25,6 +25,7 @@
     - [Office Productivity Suite](#office-productivity-suite)
     - [Transcription / Meeting Intelligence](#transcription--meeting-intelligence)
     - [Channel Documentation / Knowledge Mining](#channel-documentation--knowledge-mining)
+    - [Agent‑First Work Management](#agentfirst-work-management)
     - [Interactive Runbooks](#interactive-runbooks)
   - [Foundation Models](#foundation-models)
     - [Coding Models](#coding-models)
@@ -261,6 +262,22 @@ At the orchestration frontier, the human becomes closer to a **Product Manager /
 - **Handoffs as core loop:** bounded work → persist state → handoff → restart.
 - **Graceful degradation:** scale from 1 agent to 30+ without architectural change.
 
+#### Merge queues
+
+When multiple agents work in parallel, merge conflicts are inevitable. A **dedicated merge queue** — an agent or subsystem responsible for rebasing, running validation (lint, tests), and resolving conflicts before landing changes to the main branch — is a key orchestration primitive. The merge agent should have access to work‑item context (specs, beads) so it can make informed decisions about which change should win when conflicts arise. This is a significant advantage over naive file‑level locking, which simply prevents concurrent edits to the same file. As AI‑native teams produce code faster with parallel agents, the problem of merging a much faster‑moving codebase becomes acute — merge queues with context‑aware conflict resolution address this directly.
+
+#### Agent‑first work management
+
+Traditional work management tools (Linear, Jira) are designed for human consumption. At Stage 4, **agent‑first work management systems** optimise for agent experience — CLI‑native interfaces, machine‑readable state, and version‑controlled history of all changes. These systems ensure agents track, update, and close work items as a first‑class part of their workflow rather than an afterthought. The key challenge is **enforcement**: without explicit hooks or guards, models will frequently skip work‑tracking steps and jump straight to coding.
+
+#### Agent overeagerness and delegation discipline
+
+A persistent challenge at this stage is that models tend to **do work themselves rather than delegating** to specialised worker agents. Address this through: specific vocabulary in prompts that reliably triggers delegation (e.g., a consistent verb like "sling" or "dispatch"), **lifecycle hooks** that enforce workflow compliance (pre‑commit hooks validating work‑item references, model hooks forcing delegation checks), and clear separation between orchestrator and worker roles. Without these guardrails, orchestrator agents will collapse into single‑agent execution.
+
+#### Resource management at scale
+
+Running multiple agents in parallel increases token consumption significantly. Practical considerations include: idling or docking agent sessions when not actively working to avoid background token burn, **context compression proxies** that reduce boilerplate in model context windows (observed savings of 20–30%), and subscription/budget pooling across concurrent agent workloads. Teams commonly discover they need multiple model subscriptions once they begin running two or more parallel workstreams.
+
 ---
 
 ## AI Enabled Tools
@@ -336,6 +353,10 @@ Tools that watch Slack/Teams channels and harvest valuable project information. 
 **Tool examples:**
 - **Slack AI** - Native search and summarization across Slack channels and history.
 - Custom RAG solutions built on conversation exports and vector databases.
+
+### Agent‑First Work Management
+
+Traditional project management tools (Jira, Linear) are built for human workflows. As teams move toward Stage 4 agentic orchestration, work management systems designed with **agents as first‑class citizens** become important — featuring CLI‑native interfaces, machine‑readable state, git‑backed history, and lightweight primitives that agents can update without navigating human‑oriented UIs. These tools bridge the gap between human oversight (the PM can still see the backlog) and agent execution (the agent can programmatically claim, update, and close work items).
 
 ### Interactive Runbooks
 
@@ -492,6 +513,7 @@ Controls to build trust across the SDLC:
 - **Review model:** humans review changes; agents don't merge to main unassisted.
 - **Board sync:** use MCP integrations to keep project boards synchronised with actual delivery state, reducing manual board maintenance overhead.
 - **Progressive tooling:** add tools and infrastructure gradually, only when needed. Build quick internal tools for immediate needs (e.g. a bespoke trace visualiser for debugging), then replace with production‑grade solutions later. AI makes this fast prototyping practical.
+- **Hooks as enforcement:** lifecycle hooks are a critical mechanism for agent governance. Implement hooks at multiple levels: **model hooks** (triggered on agent lifecycle events such as tool calls, message completion, or session start/end), **git hooks** (pre‑commit validation of work‑item references, lint checks, secrets scanning), and **orchestration hooks** (cold‑start hooks that rehydrate agent context, dispatch hooks that enforce delegation). Hooks are especially important because agents will not reliably self‑enforce process compliance through instructions alone — deterministic hook‑based enforcement is far more reliable than prompt‑based reminders.
 
 ---
 
