@@ -306,7 +306,10 @@ Frameworks that provide structured methodologies for context engineering and spe
 - **SpecKit** - Framework for structured spec authoring and agent orchestration.
 - **BMAD Method** - Comprehensive spec-driven workflow with strong role definitions and workflow structure.
 - **Amazon Kiro** - IDE with built-in spec-driven primitives: requirements, design docs, and task/backlog workflows.
-
+- **OpenSpec** - Lightweight & unopinionated framework for authoring markdown specs & decomposing these into a backlog. 
+  
+_Aside: Don't underestimate the power of bare markdown spec documents, and an instruction in AGENTS.md on the layout thereof - a framework can help you get started, but isn't a necessity._
+  
 ### IDEs (Agentic IDEs)
 
 Next‑generation IDEs are not "better autocomplete"; they are **workflow orchestration surfaces**:
@@ -356,7 +359,7 @@ Tools that watch Slack/Teams channels and harvest valuable project information. 
 
 ### Agent‑First Work Management
 
-Traditional project management tools (Jira, Linear) are built for human workflows. As teams move toward Stage 4 agentic orchestration, work management systems designed with **agents as first‑class citizens** become important — featuring CLI‑native interfaces, machine‑readable state, git‑backed history, and lightweight primitives that agents can update without navigating human‑oriented UIs. These tools bridge the gap between human oversight (the PM can still see the backlog) and agent execution (the agent can programmatically claim, update, and close work items).
+Traditional project management tools (Jira, Linear) are built for human workflows. As teams move toward Stage 4 agentic orchestration, work management systems (like Beads) designed with **agents as first‑class citizens** become important — featuring CLI‑native interfaces, machine‑readable state, git‑backed history, and lightweight primitives that agents can update without navigating human‑oriented UIs. These tools bridge the gap between human oversight (the PM can still see the backlog) and agent execution (the agent can programmatically claim, update, and close work items).
 
 ### Interactive Runbooks
 
@@ -524,6 +527,7 @@ Adopting AINE changes how teams organise, collaborate, and review work — not j
 ### Splitting Work to Avoid Conflicts
 
 With AI assistance, engineers move fast and touch a lot of code — which creates frequent merge conflicts. The recommended approach is to assign different **streams of work** to different engineers, rather than different tasks within the same story. For example: one engineer on the backend API, another on the ingestion pipeline, a third on the frontend. This lets people move at high velocity without stepping on each other.
+Eventually, you'll want a dedicated merge stack (see [Merge queues](#merge-queues)) which can cater for conflicting work & allow higher degrees of paralellism - but decomposing slices is a great way to start. 
 
 ### Pair / Ensemble Programming for Alignment
 
