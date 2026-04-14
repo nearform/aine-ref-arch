@@ -524,6 +524,14 @@ Controls to build trust across the SDLC:
 
 Adopting AINE changes how teams organise, collaborate, and review work — not just how individuals write code.
 
+### Team Shape
+
+An AI‑native pod is typically **3–5 engineers** where everyone wears multiple hats. Product ownership on larger projects can have a separate function, but often sits with a line‑of‑business stakeholder; specs are co‑authored by an engineer (or tech lead) and that product owner.
+
+The biggest shift is **pace**. When the cost of building a feature drops dramatically, two‑week sprints feel sluggish — teams often move to weekly or even daily sprint cadences. Prioritisation changes too: instead of debating business value in a backlog grooming session, work is largely ordered by **stacked dependencies** because the bottleneck is no longer developer throughput but integration sequencing. Traditional scrum ceremonies still happen, but they are lighter.
+
+QA follows a similar pattern. On larger products with many integration surfaces, a dedicated QA engineer is valuable. On smaller projects the role can be delegated to a **suite of agents** that build a trust stack — automated checks that validate each feature against expected quality standards — removing the need for a standalone QA function. UAT remains with the product owner regardless of team size.
+
 ### Splitting Work to Avoid Conflicts
 
 With AI assistance, engineers move fast and touch a lot of code — which creates frequent merge conflicts. The recommended approach is to assign different **streams of work** to different engineers, rather than different tasks within the same story. For example: one engineer on the backend API, another on the ingestion pipeline, a third on the frontend. This lets people move at high velocity without stepping on each other.
